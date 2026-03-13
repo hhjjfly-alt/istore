@@ -8,10 +8,12 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=LuCI based ipk store
 LUCI_DESCRIPTION:=luci-app-store is a ipk store developed by LinkEase team
 LUCI_DEPENDS:=+curl +opkg +luci-lib-ipkg +tar +libuci-lua +mount-utils +luci-lib-taskd
-LUCI_EXTRA_DEPENDS:=luci-lib-taskd (>=1.0.19)
+# 【修复 1】去除了 (>=1.0.19) 的版本限制，防止 apk 依赖解析报错
+LUCI_EXTRA_DEPENDS:=luci-lib-taskd
 LUCI_PKGARCH:=all
 
-PKG_VERSION:=0.1.32-1
+# 【修复 2】去除了 -1 的连字符，符合 apk SemVer 版本规范
+PKG_VERSION:=0.1.32
 # PKG_RELEASE MUST be empty for luci.mk
 PKG_RELEASE:=
 
@@ -36,4 +38,3 @@ endef
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
-
